@@ -1,22 +1,26 @@
 #include "Dispencer.h"
-/** 
+/**
  *  abstract class
  */
-Dispencer::Dispencer(int buadRate, int pinRx, int pinTx) {
+Dispencer::Dispencer(int baudRate, int pinRx, int pinTx)
+{
   baud_rate = baudRate;
   pin_rx = pinRx;
   pin_tx = pinTx;
 }
 
-Dispencer::connectDispencer() {
+void Dispencer::connectDispencer()
+{
   dispencerSerial.begin(baud_rate, SERIAL_8N1, pin_rx, pin_rx);
 }
 
-Dispencer::isConnected(): bool {
-  return (bool) dispencerSerial;
+bool Dispencer::isConnected()
+{
+  return (bool)dispencerSerial;
 }
 
-Dispencer::disconnectDispencer() {
+void Dispencer::disconnectDispencer()
+{
   dispencerSerial.end();
 }
 
@@ -25,18 +29,31 @@ Dispencer::disconnectDispencer() {
   routine is run between each time loop() runs, so using delay inside loop can
   delay response. Multiple bytes of data may be available.
 */
-Dispencer::serialEvent() {
+void Dispencer::serialEvent()
+{
   int needToRead = dispencerSerial.available();
-  serial_data = {};
-  dispencerSerial.readBytesUntil("\r", serial_data, needToRead)
-  is_ready_to_read = true;
+  while (dispencerSerial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read();
+    // add it to the inputString:
+    serial_data += inChar;
+    // if the incoming character is a newline, set a flag so the main loop can
+    // do something about it:
+    if (inChar == '\n') {
+      is_ready_to_read = true;
+    }
+  }
 }
 
 
-Dispencer::isReadyToRead(): bool {
+bool Dispencer::isReadyToRead()
+{
   return is_ready_to_read;
 }
 
-Dispencer::getReadData(): byte[] {
-  return serial_data;
+String Dispencer::getReadData()
+{
+  String response = serial_data;
+  serial_data = "";
+  return response;
 }

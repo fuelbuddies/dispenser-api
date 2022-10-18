@@ -5,10 +5,62 @@
   #include "Dispencer.h"
 #endif
 
-class VeederRoot: public Dispencer {
+class VeederRoot:public Dispencer 
+{
   public:
-    VeederRoot(int buad_rate=9600, int pin_rx=17, int pin_tx=16);
-
+    VeederRoot(int buad_rate,int pin_rx,int pin_tx);
+  
+  int readDispencerStatus();
+  /**
+   * read totalizer reading
+   */
+  int readTotalizer();
+  /**
+   * authorize the sale and start dispencing
+   */
+  int authorizeSale();
+  /**
+   * sets the quantity to be dispencend
+   * [dispencer specific]
+   */
+  int sendPreset();
+  /**
+   * suspendDispencer, clearSale, pumpStop
+   */
+  int stopDispencer();
+  /**
+   * suspend Dispencer
+   */
+  int suspendDispencer();
+  /**
+   * resume the dispencer
+   */
+  int resumeDispencer();
+  /**
+   * clear sale
+   */
+  int clearSale();
+  /**
+   * read sale
+   */
+  int readSale();
+  /**
+   * stop the external pump
+   */
+  int pumpStop();
+  /**
+   * start the external pump
+   */
+  int pumpStart();
+  /**
+   * switch dispencer mode to online.
+   */
+  int switchMode(bool online=true);
+  
+  /**
+   * read the value from serialdata
+   */
+  int getReadData();
   private:
     byte veeder_start[8]           =  {0x7E, 0x01, 0xFF, 0x53, 0x75, 0x00, 0x38, 0x7E};
     byte veeder_mode[8]            =  {0x7E, 0x01, 0xFF, 0x53, 0x75, 0x02, 0x36, 0x7E};
