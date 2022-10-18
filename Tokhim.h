@@ -5,7 +5,7 @@
 #include "Dispencer.h"
 #endif
 
-class Tokhim:public Dispencer
+class Tokhim : public Dispencer
 {
 public:
   Tokhim(int buad_rate, int pin_rx, int pin_tx);

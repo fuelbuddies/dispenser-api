@@ -2,7 +2,7 @@
 #include "VeederRoot.h"
 #endif
 
-VeederRoot::VeederRoot(int buad_rate, int pin_rx, int pin_tx): Dispencer(buad_rate, pin_rx, pin_tx)
+VeederRoot::VeederRoot(int buad_rate, int pin_rx, int pin_tx) : Dispencer(buad_rate, pin_rx, pin_tx)
 {
 }
 

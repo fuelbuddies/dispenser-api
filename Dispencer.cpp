@@ -32,19 +32,20 @@ void Dispencer::disconnectDispencer()
 void Dispencer::serialEvent()
 {
   int needToRead = dispencerSerial.available();
-  while (dispencerSerial.available()) {
+  while (dispencerSerial.available())
+  {
     // get the new byte:
     char inChar = (char)Serial.read();
     // add it to the inputString:
     serial_data += inChar;
     // if the incoming character is a newline, set a flag so the main loop can
     // do something about it:
-    if (inChar == '\n') {
+    if (inChar == '\n')
+    {
       is_ready_to_read = true;
     }
   }
 }
-
 
 bool Dispencer::isReadyToRead()
 {

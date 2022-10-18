@@ -1,6 +1,6 @@
 #include "Tokhim.h"
 
-Tokhim::Tokhim(int buad_rate, int pin_rx, int pin_tx): Dispencer(buad_rate, pin_rx, pin_tx)
+Tokhim::Tokhim(int buad_rate, int pin_rx, int pin_tx) : Dispencer(buad_rate, pin_rx, pin_tx)
 {
 }
 void Tokhim::connectDispencer()
