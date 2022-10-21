@@ -8,6 +8,16 @@ Dispencer::Dispencer(int baudRate, int pinRx, int pinTx)
   pin_rx = pinRx;
   pin_tx = pinTx;
 }
+int ASCIIHexToInt(char c)
+{
+  int ret = 0;
+  if ((c >= '0') && (c <= '9'))
+    ret = (ret << 4) + c - '0';
+  else
+    ret = (ret << 4) + toupper(c) - 'A' + 10;
+
+  return ret;
+}
 
 void Dispencer::connectDispencer()
 {

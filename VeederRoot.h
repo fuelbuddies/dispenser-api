@@ -23,7 +23,7 @@ public:
    * sets the quantity to be dispencend
    * [dispencer specific]
    */
-  int sendPreset();
+  int sendPreset(int set);
   /**
    * suspendDispencer, clearSale, pumpStop
    */
@@ -61,6 +61,8 @@ public:
    * read the value from serialdata
    */
   int getReadData();
+
+  byte * presetCalculate(float quantity);
 
 private:
   byte veeder_start[8] = {0x7E, 0x01, 0xFF, 0x53, 0x75, 0x00, 0x38, 0x7E};

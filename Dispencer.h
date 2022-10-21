@@ -111,6 +111,10 @@ public:
     return 0;
   }
 
+  virtual byte * presetCalculate(float quantity) {
+    return {};
+  };
+
   /**
    * read the value from serialdata
    */
@@ -133,7 +137,7 @@ protected:
   int pin_tx;
   String serial_data;
   bool is_ready_to_read = false;
-  byte *presetCalculate(float quantity);
+
   virtual int internalPumpStart()
   {
     return 0;
