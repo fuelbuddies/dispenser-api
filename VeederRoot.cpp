@@ -2,7 +2,7 @@
 #include "VeederRoot.h"
 #endif
 
-VeederRoot::VeederRoot(int buad_rate, int pin_rx, int pin_tx) : Dispencer(buad_rate, pin_rx, pin_tx)
+VeederRoot::VeederRoot(HardwareSerial serial, int buad_rate, int pin_rx, int pin_tx) : Dispencer(serial, buad_rate, pin_rx, pin_tx)
 {
 }
 
@@ -31,8 +31,7 @@ int VeederRoot::authorizeSale()
  */
 int VeederRoot::sendPreset(float quantity)
 {
-  byte volume[] = presetCalculate(quantity);
-  return dispencerSerial.write(volume, sizeof(volume));
+  return dispencerSerial.write(presetCalculate(quantity), sizeof(presetCalculate(quantity)));
 }
 /**
  * suspendDispencer, clearSale, pumpStop
@@ -101,8 +100,9 @@ int VeederRoot::getReadData()
   return 0;
 }
 
-byte * presetCalculate(int quantity) {
-  int J, K, L, P;
+byte * VeederRoot::presetCalculate(float quantity) {
+  int J, K, L, P,set;
+  set=quantity;
   if (set < 10)
   {
     J = 0;

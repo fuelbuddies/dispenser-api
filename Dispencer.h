@@ -12,7 +12,7 @@
 class Dispencer
 {
 public:
-  Dispencer(int buad_rate = 9600, int pin_rx = 17, int pin_tx = 16);
+  Dispencer(HardwareSerial serial, int buad_rate = 9600, int pin_rx = 17, int pin_tx = 16);
   /**
    * connect dispencer on serial port
    */
@@ -129,12 +129,13 @@ public:
    * data has been fetched
    */
   bool isReadyToRead();
-
+  HardwareSerial getSerial();
 protected:
-  HardwareSerial dispencerSerial = HardwareSerial(2);
+  HardwareSerial dispencerSerial;
   int baud_rate;
   int pin_rx;
   int pin_tx;
+
   String serial_data;
   bool is_ready_to_read = false;
 

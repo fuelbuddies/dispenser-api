@@ -8,7 +8,7 @@
 class VeederRoot : public Dispencer
 {
 public:
-  VeederRoot(int buad_rate, int pin_rx, int pin_tx);
+  VeederRoot(HardwareSerial serial, int buad_rate, int pin_rx, int pin_tx);
 
   int readDispencerStatus();
   /**
@@ -23,7 +23,7 @@ public:
    * sets the quantity to be dispencend
    * [dispencer specific]
    */
-  int sendPreset(int set);
+  int sendPreset(float quantity);
   /**
    * suspendDispencer, clearSale, pumpStop
    */

@@ -2,12 +2,14 @@
 /**
  *  abstract class
  */
-Dispencer::Dispencer(int baudRate, int pinRx, int pinTx)
+Dispencer::Dispencer(HardwareSerial serial, int baudRate, int pinRx, int pinTx)
 {
+  dispencerSerial = serial;
   baud_rate = baudRate;
   pin_rx = pinRx;
   pin_tx = pinTx;
 }
+
 int ASCIIHexToInt(char c)
 {
   int ret = 0;
@@ -41,20 +43,17 @@ void Dispencer::disconnectDispencer()
 */
 void Dispencer::serialEvent()
 {
-  int needToRead = dispencerSerial.available();
-  while (dispencerSerial.available())
+  is_ready_to_read = false;
+  while (dispencerSerial.available()>0)
   {
-    // get the new byte:
-    char inChar = (char)Serial.read();
     // add it to the inputString:
-    serial_data += inChar;
-    // if the incoming character is a newline, set a flag so the main loop can
-    // do something about it:
-    if (inChar == '\n')
-    {
-      is_ready_to_read = true;
-    }
+    serial_data = String(serial_data) + String(dispencerSerial.read(), HEX);
+    is_ready_to_read = true;
   }
+}
+
+HardwareSerial Dispencer::getSerial() {
+  return dispencerSerial;
 }
 
 bool Dispencer::isReadyToRead()
@@ -65,6 +64,6 @@ bool Dispencer::isReadyToRead()
 String Dispencer::getReadData()
 {
   String response = serial_data;
-  serial_data = "";
+  //serial_data = "";
   return response;
 }

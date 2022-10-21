@@ -8,7 +8,7 @@
 class Tokhim : public Dispencer
 {
 public:
-  Tokhim(int buad_rate, int pin_rx, int pin_tx);
+  Tokhim(HardwareSerial serial, int buad_rate, int pin_rx, int pin_tx);
   /**
    * connect dispencer on serial port
    */
