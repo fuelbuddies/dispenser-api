@@ -1,6 +1,6 @@
 #include "Tokhim.h"
 
-Tokhim::Tokhim(HardwareSerial serial, int buad_rate, int pin_rx, int pin_tx) : Dispencer(serial, buad_rate, pin_rx, pin_tx)
+Tokhim::Tokhim(HardwareSerial *serial) : Dispencer(serial)
 {
 }
 void Tokhim::connectDispencer()
@@ -22,7 +22,7 @@ bool Tokhim::isConnected()
 
 int Tokhim::readTotalizer()
 {
-  return dispencerSerial.write(totalizer, sizeof(totalizer));
+  return dispencerSerial->write(totalizer, sizeof(totalizer));
 }
 
 int Tokhim::readDispencerStatus()
@@ -35,7 +35,7 @@ int Tokhim::readDispencerStatus()
  */
 int Tokhim::authorizeSale()
 {
-  return dispencerSerial.write(authorize, sizeof(authorize));
+  return dispencerSerial->write(authorize, sizeof(authorize));
 }
 /**
  * sets the quantity to be dispencend
@@ -51,9 +51,9 @@ int Tokhim::sendPreset(int set)
  */
 int Tokhim::stopDispencer()
 {
-  dispencerSerial.write(suspend_sale,sizeof(suspend_sale));
-  dispencerSerial.write(clear_sale,sizeof(clear_sale));
-  dispencerSerial.write(pump_stop,sizeof(pump_stop));
+  dispencerSerial->write(suspend_sale,sizeof(suspend_sale));
+  dispencerSerial->write(clear_sale,sizeof(clear_sale));
+  dispencerSerial->write(pump_stop,sizeof(pump_stop));
   return 0;
 }
 /**
@@ -61,55 +61,47 @@ int Tokhim::stopDispencer()
  */
 int Tokhim::suspendDispencer()
 {
-  return dispencerSerial.write(suspend_sale,sizeof(suspend_sale));
+  return dispencerSerial->write(suspend_sale,sizeof(suspend_sale));
 }
 /**
  * resume the dispencer
  */
 int Tokhim::resumeDispencer()
 {
-  return dispencerSerial.write(pump_stop,sizeof(pump_stop));;
+  return dispencerSerial->write(pump_stop,sizeof(pump_stop));;
 }
 /**
  * clear sale
  */
 int Tokhim::clearSale() 
 {
-  return dispencerSerial.write(clear_sale, sizeof(clear_sale));
+  return dispencerSerial->write(clear_sale, sizeof(clear_sale));
 }
 /**
  * read sale
  */
 int Tokhim::readSale()
 {
-  return dispencerSerial.write(read_sale,sizeof(read_sale));
+  return dispencerSerial->write(read_sale,sizeof(read_sale));
 }
 /**
  * stop the external pump
  */
 int Tokhim::pumpStop() 
 {
-  return dispencerSerial.write(pump_stop, sizeof(pump_stop));
+  return dispencerSerial->write(pump_stop, sizeof(pump_stop));
 }
 /**
  * start the external pump
  */
 int Tokhim::pumpStart()
 {
-  return dispencerSerial.write(pump_start, sizeof(pump_start));
+  return dispencerSerial->write(pump_start, sizeof(pump_start));
 }
 /**
  * switch dispencer mode to online.
  */
 int Tokhim::switchMode(bool online)
-{
-  return 0;
-}
-
-/**
- * read the value from serialdata
- */
-int Tokhim::getReadData()
 {
   return 0;
 }

@@ -2,7 +2,7 @@
 #include "VeederRoot.h"
 #endif
 
-VeederRoot::VeederRoot(HardwareSerial serial, int buad_rate, int pin_rx, int pin_tx) : Dispencer(serial, buad_rate, pin_rx, pin_tx)
+VeederRoot::VeederRoot(HardwareSerial *serial) : Dispencer(serial)
 {
 }
 
@@ -13,7 +13,7 @@ int VeederRoot::readDispencerStatus()
 
 int VeederRoot::readTotalizer()
 {
-  return dispencerSerial.write(veeder_totalizer,sizeof(veeder_totalizer));
+  return dispencerSerial->write(veeder_totalizer,sizeof(veeder_totalizer));
 }
 
 /**
@@ -21,8 +21,8 @@ int VeederRoot::readTotalizer()
  */
 int VeederRoot::authorizeSale()
 {
-  dispencerSerial.write(veeder_authorize_on,sizeof(veeder_authorize_on));
-  dispencerSerial.write(veeder_start,sizeof(veeder_start));
+  dispencerSerial->write(veeder_authorize_on,sizeof(veeder_authorize_on));
+  dispencerSerial->write(veeder_start,sizeof(veeder_start));
   return 0;
 }
 /**
@@ -31,23 +31,23 @@ int VeederRoot::authorizeSale()
  */
 int VeederRoot::sendPreset(float quantity)
 {
-  return dispencerSerial.write(presetCalculate(quantity), sizeof(presetCalculate(quantity)));
+  return dispencerSerial->write(presetCalculate(quantity), sizeof(presetCalculate(quantity)));
 }
 /**
  * suspendDispencer, clearSale, pumpStop
  */
 int VeederRoot::stopDispencer()
 {
-  dispencerSerial.write(veeder_authorize_off,sizeof(veeder_authorize_off));
-  dispencerSerial.write(veeder_reset,sizeof(veeder_reset));
-  return  dispencerSerial.write(veeder_finish, sizeof(veeder_finish));
+  dispencerSerial->write(veeder_authorize_off,sizeof(veeder_authorize_off));
+  dispencerSerial->write(veeder_reset,sizeof(veeder_reset));
+  return  dispencerSerial->write(veeder_finish, sizeof(veeder_finish));
 }
 /**
  * suspend Dispencer
  */
 int VeederRoot::suspendDispencer()
 {
-  return dispencerSerial.write(veeder_authorize_off,sizeof(veeder_authorize_off));
+  return dispencerSerial->write(veeder_authorize_off,sizeof(veeder_authorize_off));
 }
 /**
  * resume the dispencer
@@ -61,41 +61,33 @@ int VeederRoot::resumeDispencer()
  */
 int VeederRoot::clearSale()
 {
-  return dispencerSerial.write(veeder_reset,sizeof(veeder_reset));
+  return dispencerSerial->write(veeder_reset,sizeof(veeder_reset));
 }
 /**
  * read sale
  */
 int VeederRoot::readSale()
 {
-  return dispencerSerial.write(veeder_read_preset,sizeof(veeder_read_preset));
+  return dispencerSerial->write(veeder_read_preset,sizeof(veeder_read_preset));
 }
 /**
  * stop the external pump
  */
 int VeederRoot::pumpStop()
 {
-  return dispencerSerial.write(veeder_finish,sizeof(veeder_finish));
+  return dispencerSerial->write(veeder_finish,sizeof(veeder_finish));
 }
 /**
  * start the external pump
  */
 int VeederRoot::pumpStart()
 {
-  return dispencerSerial.write(veeder_start,sizeof(veeder_start));
+  return dispencerSerial->write(veeder_start,sizeof(veeder_start));
 }
 /**
  * switch dispencer mode to online.
  */
 int VeederRoot::switchMode(bool online)
-{
-  return 0;
-}
-
-/**
- * read the value from serialdata
- */
-int VeederRoot::getReadData()
 {
   return 0;
 }

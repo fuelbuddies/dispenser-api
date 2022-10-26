@@ -8,7 +8,7 @@
 class Tokhim : public Dispencer
 {
 public:
-  Tokhim(HardwareSerial serial, int buad_rate, int pin_rx, int pin_tx);
+  Tokhim(HardwareSerial *serial);
   /**
    * connect dispencer on serial port
    */
@@ -68,11 +68,6 @@ public:
    * switch dispencer mode to online.
    */
   int switchMode(bool online = true);
-
-  /**
-   * read the value from serialdata
-   */
-  int getReadData();
 
   byte * presetCalculate(float quantity);
 

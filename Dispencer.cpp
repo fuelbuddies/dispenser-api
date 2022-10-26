@@ -2,12 +2,9 @@
 /**
  *  abstract class
  */
-Dispencer::Dispencer(HardwareSerial serial, int baudRate, int pinRx, int pinTx)
+Dispencer::Dispencer(HardwareSerial *serial)
 {
   dispencerSerial = serial;
-  baud_rate = baudRate;
-  pin_rx = pinRx;
-  pin_tx = pinTx;
 }
 
 int ASCIIHexToInt(char c)
@@ -21,20 +18,20 @@ int ASCIIHexToInt(char c)
   return ret;
 }
 
-void Dispencer::connectDispencer()
-{
-  dispencerSerial.begin(baud_rate, SERIAL_8N1, pin_rx, pin_rx);
-}
+// void Dispencer::connectDispencer()
+// {
+//   dispencerSerial->begin(baud_rate, SERIAL_8N1, pin_rx, pin_rx);
+// }
 
-bool Dispencer::isConnected()
-{
-  return (bool)dispencerSerial;
-}
+// bool Dispencer::isConnected()
+// {
+//   return (bool)dispencerSerial;
+// }
 
-void Dispencer::disconnectDispencer()
-{
-  dispencerSerial.end();
-}
+// void Dispencer::disconnectDispencer()
+// {
+//   dispencerSerial->end();
+// }
 
 /*
   SerialEvent occurs whenever a new data comes in the hardware serial RX. This
@@ -44,15 +41,16 @@ void Dispencer::disconnectDispencer()
 void Dispencer::serialEvent()
 {
   is_ready_to_read = false;
-  while (dispencerSerial.available()>0)
+  while (dispencerSerial->available()>0)
   {
+    String str = String(dispencerSerial->read(), HEX);
     // add it to the inputString:
-    serial_data = String(serial_data) + String(dispencerSerial.read(), HEX);
+    serial_data = String(serial_data) + str;
     is_ready_to_read = true;
   }
 }
 
-HardwareSerial Dispencer::getSerial() {
+HardwareSerial *Dispencer::getSerial() {
   return dispencerSerial;
 }
 
@@ -63,7 +61,9 @@ bool Dispencer::isReadyToRead()
 
 String Dispencer::getReadData()
 {
-  String response = serial_data;
-  //serial_data = "";
+
+  String response = String(serial_data);
+  serial_data = "";
+  is_ready_to_read = false;
   return response;
 }

@@ -12,19 +12,19 @@
 class Dispencer
 {
 public:
-  Dispencer(HardwareSerial serial, int buad_rate = 9600, int pin_rx = 17, int pin_tx = 16);
+  Dispencer(HardwareSerial *serial);
   /**
    * connect dispencer on serial port
    */
-  void connectDispencer();
+  // void connectDispencer();
   /**
    * disconnect dispencer from serial port.
    */
-  void disconnectDispencer();
+  // void disconnectDispencer();
   /**
    * check if serial is connected
    */
-  bool isConnected();
+  // bool isConnected();
   /**
    * status poll
    */
@@ -129,12 +129,9 @@ public:
    * data has been fetched
    */
   bool isReadyToRead();
-  HardwareSerial getSerial();
+  HardwareSerial *getSerial();
 protected:
-  HardwareSerial dispencerSerial;
-  int baud_rate;
-  int pin_rx;
-  int pin_tx;
+  HardwareSerial *dispencerSerial;
 
   String serial_data;
   bool is_ready_to_read = false;
@@ -143,6 +140,7 @@ protected:
   {
     return 0;
   };
+  
   virtual int internalPumpStop()
   {
     return 0;
