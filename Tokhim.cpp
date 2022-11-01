@@ -1,6 +1,6 @@
 #include "Tokhim.h"
 
-Tokhim::Tokhim(int buad_rate, int pin_rx, int pin_tx) : Dispencer(buad_rate, pin_rx, pin_tx)
+Tokhim::Tokhim(HardwareSerial *serial) : Dispencer(serial)
 {
 }
 void Tokhim::connectDispencer()
@@ -22,7 +22,7 @@ bool Tokhim::isConnected()
 
 int Tokhim::readTotalizer()
 {
-  return dispencerSerial.write(totalizer, sizeof(totalizer));
+  return dispencerSerial->write(totalizer, sizeof(totalizer));
 }
 
 int Tokhim::readDispencerStatus()
@@ -35,21 +35,25 @@ int Tokhim::readDispencerStatus()
  */
 int Tokhim::authorizeSale()
 {
-  return 0;
+  return dispencerSerial->write(authorize, sizeof(authorize));
 }
 /**
  * sets the quantity to be dispencend
  * [dispencer specific]
  */
-int Tokhim::sendPreset()
+int Tokhim::sendPreset(int set)
 {
-  return 0;
+
+  return set;
 }
 /**
  * suspendDispencer, clearSale, pumpStop
  */
 int Tokhim::stopDispencer()
 {
+  dispencerSerial->write(suspend_sale,sizeof(suspend_sale));
+  dispencerSerial->write(clear_sale,sizeof(clear_sale));
+  dispencerSerial->write(pump_stop,sizeof(pump_stop));
   return 0;
 }
 /**
@@ -57,42 +61,42 @@ int Tokhim::stopDispencer()
  */
 int Tokhim::suspendDispencer()
 {
-  return 0;
+  return dispencerSerial->write(suspend_sale,sizeof(suspend_sale));
 }
 /**
  * resume the dispencer
  */
 int Tokhim::resumeDispencer()
 {
-  return 0;
+  return dispencerSerial->write(pump_stop,sizeof(pump_stop));;
 }
 /**
  * clear sale
  */
-int Tokhim::clearSale()
+int Tokhim::clearSale() 
 {
-  return 0;
+  return dispencerSerial->write(clear_sale, sizeof(clear_sale));
 }
 /**
  * read sale
  */
 int Tokhim::readSale()
 {
-  return 0;
+  return dispencerSerial->write(read_sale,sizeof(read_sale));
 }
 /**
  * stop the external pump
  */
-int Tokhim::pumpStop()
+int Tokhim::pumpStop() 
 {
-  return 0;
+  return dispencerSerial->write(pump_stop, sizeof(pump_stop));
 }
 /**
  * start the external pump
  */
 int Tokhim::pumpStart()
 {
-  return 0;
+  return dispencerSerial->write(pump_start, sizeof(pump_start));
 }
 /**
  * switch dispencer mode to online.
@@ -102,10 +106,6 @@ int Tokhim::switchMode(bool online)
   return 0;
 }
 
-/**
- * read the value from serialdata
- */
-int Tokhim::getReadData()
-{
-  return 0;
+byte * Tokhim::presetCalculate(float quantity){
+  return {};
 }

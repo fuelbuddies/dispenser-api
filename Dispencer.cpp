@@ -2,27 +2,36 @@
 /**
  *  abstract class
  */
-Dispencer::Dispencer(int baudRate, int pinRx, int pinTx)
+Dispencer::Dispencer(HardwareSerial *serial)
 {
-  baud_rate = baudRate;
-  pin_rx = pinRx;
-  pin_tx = pinTx;
+  dispencerSerial = serial;
 }
 
-void Dispencer::connectDispencer()
+int ASCIIHexToInt(char c)
 {
-  dispencerSerial.begin(baud_rate, SERIAL_8N1, pin_rx, pin_rx);
+  int ret = 0;
+  if ((c >= '0') && (c <= '9'))
+    ret = (ret << 4) + c - '0';
+  else
+    ret = (ret << 4) + toupper(c) - 'A' + 10;
+
+  return ret;
 }
 
-bool Dispencer::isConnected()
-{
-  return (bool)dispencerSerial;
-}
+// void Dispencer::connectDispencer()
+// {
+//   dispencerSerial->begin(baud_rate, SERIAL_8N1, pin_rx, pin_rx);
+// }
 
-void Dispencer::disconnectDispencer()
-{
-  dispencerSerial.end();
-}
+// bool Dispencer::isConnected()
+// {
+//   return (bool)dispencerSerial;
+// }
+
+// void Dispencer::disconnectDispencer()
+// {
+//   dispencerSerial->end();
+// }
 
 /*
   SerialEvent occurs whenever a new data comes in the hardware serial RX. This
@@ -31,20 +40,18 @@ void Dispencer::disconnectDispencer()
 */
 void Dispencer::serialEvent()
 {
-  int needToRead = dispencerSerial.available();
-  while (dispencerSerial.available())
+  is_ready_to_read = false;
+  while (dispencerSerial->available()>0)
   {
-    // get the new byte:
-    char inChar = (char)Serial.read();
+    String str = String(dispencerSerial->read(), HEX);
     // add it to the inputString:
-    serial_data += inChar;
-    // if the incoming character is a newline, set a flag so the main loop can
-    // do something about it:
-    if (inChar == '\n')
-    {
-      is_ready_to_read = true;
-    }
+    serial_data = String(serial_data) + str;
+    is_ready_to_read = true;
   }
+}
+
+HardwareSerial *Dispencer::getSerial() {
+  return dispencerSerial;
 }
 
 bool Dispencer::isReadyToRead()
@@ -54,7 +61,9 @@ bool Dispencer::isReadyToRead()
 
 String Dispencer::getReadData()
 {
-  String response = serial_data;
+
+  String response = String(serial_data);
   serial_data = "";
+  is_ready_to_read = false;
   return response;
 }
