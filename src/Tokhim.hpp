@@ -1,9 +1,7 @@
 #ifndef TOKHIM_H
 #define TOKHIM_H
 
-#ifndef DISPENCER_H
 #include "Dispencer.hpp"
-#endif
 
 class Tokhim : public Dispencer
 {

@@ -1,9 +1,7 @@
 #ifndef VEEDERROOT_H
 #define VEEDERROOT_H
 
-#ifndef DISPENCER_H
 #include "Dispencer.hpp"
-#endif
 
 class VeederRoot : public Dispencer
 {
