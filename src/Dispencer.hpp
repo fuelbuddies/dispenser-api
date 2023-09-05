@@ -1,11 +1,11 @@
 #ifndef DISPENCER_H
 #define DISPENCER_H
 
-#if (ARDUINO > 100)
-#include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
+// #if (ARDUINO > 100)
+// #include <Arduino.h>
+// #else
+// #include <WProgram.h>
+// #endif
 
 #include <HardwareSerial.h>
 
