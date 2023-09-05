@@ -1,5 +1,5 @@
 #ifndef VEEDERROOT_H
-#include "VeederRoot.h"
+#include "VeederRoot.hpp"
 #endif
 
 VeederRoot::VeederRoot(HardwareSerial *serial) : Dispencer(serial)

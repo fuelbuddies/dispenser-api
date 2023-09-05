@@ -2,7 +2,7 @@
 #define VEEDERROOT_H
 
 #ifndef DISPENCER_H
-#include "Dispencer.h"
+#include "Dispencer.hpp"
 #endif
 
 class VeederRoot : public Dispencer

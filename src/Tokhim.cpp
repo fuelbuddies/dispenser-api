@@ -1,4 +1,4 @@
-#include "Tokhim.h"
+#include "Tokhim.hpp"
 
 Tokhim::Tokhim(HardwareSerial *serial) : Dispencer(serial)
 {
