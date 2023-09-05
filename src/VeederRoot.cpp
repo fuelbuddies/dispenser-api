@@ -90,7 +90,7 @@ int VeederRoot::switchMode(bool online)
   return 0;
 }
 
-byte * VeederRoot::presetCalculate(float quantity) {
+uint8_t * VeederRoot::presetCalculate(float quantity) {
   int J, K, L, P,set;
   set=quantity;
   if (set < 10)
@@ -122,13 +122,13 @@ byte * VeederRoot::presetCalculate(float quantity) {
     P = (set % 10);
   }
 
-  byte one = 0x30 + J;
-  byte two = 0x30 + K;
-  byte three = 0x30 + L;
-  byte four = 0x30 + P;
+  uint8_t one = 0x30 + J;
+  uint8_t two = 0x30 + K;
+  uint8_t three = 0x30 + L;
+  uint8_t four = 0x30 + P;
 
-  byte BCC[] = {0x01, 0x41, 0x50, 0x31, 0x30, one, two, three, four, 0x30, 0x30, 0x7F};
-  byte result = BCC[0] ^ BCC[1] ^ BCC[2] ^ BCC[3] ^ BCC[4] ^ BCC[5] ^ BCC[6] ^ BCC[7] ^ BCC[8] ^ BCC[9] ^ BCC[10] ^ BCC[11];
-  byte volume[] = {0x01, 0x41, 0x50, 0x31, 0x30, one, two, three, four, 0x30, 0x30, 0x7F, result};
+  uint8_t BCC[] = {0x01, 0x41, 0x50, 0x31, 0x30, one, two, three, four, 0x30, 0x30, 0x7F};
+  uint8_t result = BCC[0] ^ BCC[1] ^ BCC[2] ^ BCC[3] ^ BCC[4] ^ BCC[5] ^ BCC[6] ^ BCC[7] ^ BCC[8] ^ BCC[9] ^ BCC[10] ^ BCC[11];
+  uint8_t volume[] = {0x01, 0x41, 0x50, 0x31, 0x30, one, two, three, four, 0x30, 0x30, 0x7F, result};
   return volume;
 }

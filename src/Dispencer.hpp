@@ -111,7 +111,7 @@ public:
     return 0;
   }
 
-  virtual byte * presetCalculate(float quantity) {
+  virtual uint8_t * presetCalculate(float quantity) {
     return {};
   };
 
