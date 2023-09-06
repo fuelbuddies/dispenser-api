@@ -31,6 +31,15 @@ int VeederEmr4::sendPreset(float quantity)
 {
   return dispencerSerial->write(presetCalculate(quantity), sizeof(presetCalculate(quantity)));
 }
+
+/**
+ * gets the quantity to be dispencend
+ * [dispencer specific]
+ */
+int VeederEmr4::readPreset()
+{
+  return dispencerSerial->write(veeder_read_preset,sizeof(veeder_read_preset));
+}
 /**
  * suspendDispencer, clearSale, pumpStop
  */

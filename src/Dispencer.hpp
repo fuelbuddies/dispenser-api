@@ -55,6 +55,24 @@ public:
     return 0;
   }
   /**
+   * get the quantity to be dispencend
+   * [dispencer specific]
+   */
+  virtual int readPreset()
+  {
+    return 0;
+  }
+
+  /**
+   * cancel preset
+   * [dispencer specific]
+   */
+  virtual int cancelPreset()
+  {
+    return 0;
+  }
+
+  /**
    * suspendDispencer, clearSale, pumpStop
    */
   virtual int stopDispencer()

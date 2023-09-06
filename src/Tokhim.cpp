@@ -46,6 +46,16 @@ int Tokhim::sendPreset(int set)
 
   return set;
 }
+
+/**
+ * gets the quantity to be dispencend
+ * [dispencer specific]
+ */
+int Tokhim::readPreset()
+{
+  return dispencerSerial->write(read_preset,sizeof(read_preset));
+}
+
 /**
  * suspendDispencer, clearSale, pumpStop
  */

@@ -23,6 +23,11 @@ public:
    */
   int sendPreset(float quantity);
   /**
+   * gets the quantity to be dispencend
+   * [dispencer specific]
+   */
+  int readPreset();
+  /**
    * suspendDispencer, clearSale, pumpStop
    */
   int stopDispencer();
