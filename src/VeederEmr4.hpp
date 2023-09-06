@@ -36,10 +36,6 @@ public:
    */
   int suspendDispencer();
   /**
-   * resume the dispencer
-   */
-  int resumeDispencer();
-  /**
    * clear sale
    */
   int clearSale();
