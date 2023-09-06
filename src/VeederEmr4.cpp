@@ -1,5 +1,8 @@
 #include "VeederEmr4.hpp"
 
+VeederEmr4::VeederEmr4(HardwareSerial *serial) : Dispencer(serial)
+{
+}
 
 int VeederEmr4::readTotalizer()
 {
