@@ -1,13 +1,5 @@
 #include "VeederEmr4.hpp"
 
-VeederEmr4::VeederEmr4(HardwareSerial *serial) : Dispencer(serial)
-{
-}
-
-int VeederEmr4::readDispencerStatus()
-{
-  return 0;
-}
 
 int VeederEmr4::readTotalizer()
 {
@@ -20,8 +12,7 @@ int VeederEmr4::readTotalizer()
 int VeederEmr4::authorizeSale()
 {
   dispencerSerial->write(veeder_authorize_on,sizeof(veeder_authorize_on));
-  dispencerSerial->write(veeder_start,sizeof(veeder_start));
-  return 0;
+  return dispencerSerial->write(veeder_start,sizeof(veeder_start));
 }
 /**
  * sets the quantity to be dispencend
@@ -47,7 +38,7 @@ int VeederEmr4::stopDispencer()
 {
   dispencerSerial->write(veeder_authorize_off,sizeof(veeder_authorize_off));
   dispencerSerial->write(veeder_reset,sizeof(veeder_reset));
-  return  dispencerSerial->write(veeder_finish, sizeof(veeder_finish));
+  return dispencerSerial->write(veeder_finish, sizeof(veeder_finish));
 }
 /**
  * suspend Dispencer
@@ -55,13 +46,6 @@ int VeederEmr4::stopDispencer()
 int VeederEmr4::suspendDispencer()
 {
   return dispencerSerial->write(veeder_authorize_off,sizeof(veeder_authorize_off));
-}
-/**
- * resume the dispencer
- */
-int VeederEmr4::resumeDispencer()
-{
-  return 0;
 }
 /**
  * clear sale
@@ -90,13 +74,6 @@ int VeederEmr4::pumpStop()
 int VeederEmr4::pumpStart()
 {
   return dispencerSerial->write(veeder_start,sizeof(veeder_start));
-}
-/**
- * switch dispencer mode to online.
- */
-int VeederEmr4::switchMode(bool online)
-{
-  return 0;
 }
 
 std::string VeederEmr4::getType()
