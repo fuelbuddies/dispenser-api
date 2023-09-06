@@ -51,6 +51,10 @@ public:
    * start the external pump
    */
   int pumpStart();
+  /**
+   * switch dispencer mode to online.
+   */
+  int switchMode(bool online = true);
 
   uint8_t * presetCalculate(float quantity);
 
