@@ -126,3 +126,13 @@ uint8_t * VeederEmr4::presetCalculate(float quantity) {
   uint8_t volume[] = {0x01, 0x41, 0x50, 0x31, 0x30, one, two, three, four, 0x30, 0x30, 0x7F, result};
   return volume;
 }
+
+int VeederEmr4::resumeDispencer()
+{
+  return 0;
+}
+
+int VeederEmr4::switchMode(bool online)
+{
+  return 0;
+}
