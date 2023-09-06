@@ -3,10 +3,10 @@
 
 #include "Dispencer.hpp"
 
-class VeederRoot : public Dispencer
+class VeederEmr4 : public Dispencer
 {
 public:
-  VeederRoot(HardwareSerial *serial);
+  VeederEmr4(HardwareSerial *serial);
 
   int readDispencerStatus();
   /**
@@ -56,6 +56,8 @@ public:
   int switchMode(bool online = true);
 
   uint8_t * presetCalculate(float quantity);
+
+  std::string getType();
 
 private:
   const uint8_t veeder_start[8] = {0x7E, 0x01, 0xFF, 0x53, 0x75, 0x00, 0x38, 0x7E};

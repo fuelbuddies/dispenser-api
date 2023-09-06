@@ -1,15 +1,15 @@
-#include "VeederRoot.hpp"
+#include "VeederEmr4.hpp"
 
-VeederRoot::VeederRoot(HardwareSerial *serial) : Dispencer(serial)
+VeederEmr4::VeederEmr4(HardwareSerial *serial) : Dispencer(serial)
 {
 }
 
-int VeederRoot::readDispencerStatus()
+int VeederEmr4::readDispencerStatus()
 {
   return 0;
 }
 
-int VeederRoot::readTotalizer()
+int VeederEmr4::readTotalizer()
 {
   return dispencerSerial->write(veeder_totalizer,sizeof(veeder_totalizer));
 }
@@ -17,7 +17,7 @@ int VeederRoot::readTotalizer()
 /**
  * authorize the sale and start dispencing
  */
-int VeederRoot::authorizeSale()
+int VeederEmr4::authorizeSale()
 {
   dispencerSerial->write(veeder_authorize_on,sizeof(veeder_authorize_on));
   dispencerSerial->write(veeder_start,sizeof(veeder_start));
@@ -27,14 +27,14 @@ int VeederRoot::authorizeSale()
  * sets the quantity to be dispencend
  * [dispencer specific]
  */
-int VeederRoot::sendPreset(float quantity)
+int VeederEmr4::sendPreset(float quantity)
 {
   return dispencerSerial->write(presetCalculate(quantity), sizeof(presetCalculate(quantity)));
 }
 /**
  * suspendDispencer, clearSale, pumpStop
  */
-int VeederRoot::stopDispencer()
+int VeederEmr4::stopDispencer()
 {
   dispencerSerial->write(veeder_authorize_off,sizeof(veeder_authorize_off));
   dispencerSerial->write(veeder_reset,sizeof(veeder_reset));
@@ -43,54 +43,59 @@ int VeederRoot::stopDispencer()
 /**
  * suspend Dispencer
  */
-int VeederRoot::suspendDispencer()
+int VeederEmr4::suspendDispencer()
 {
   return dispencerSerial->write(veeder_authorize_off,sizeof(veeder_authorize_off));
 }
 /**
  * resume the dispencer
  */
-int VeederRoot::resumeDispencer()
+int VeederEmr4::resumeDispencer()
 {
   return 0;
 }
 /**
  * clear sale
  */
-int VeederRoot::clearSale()
+int VeederEmr4::clearSale()
 {
   return dispencerSerial->write(veeder_reset,sizeof(veeder_reset));
 }
 /**
  * read sale
  */
-int VeederRoot::readSale()
+int VeederEmr4::readSale()
 {
   return dispencerSerial->write(veeder_read_preset,sizeof(veeder_read_preset));
 }
 /**
  * stop the external pump
  */
-int VeederRoot::pumpStop()
+int VeederEmr4::pumpStop()
 {
   return dispencerSerial->write(veeder_finish,sizeof(veeder_finish));
 }
 /**
  * start the external pump
  */
-int VeederRoot::pumpStart()
+int VeederEmr4::pumpStart()
 {
   return dispencerSerial->write(veeder_start,sizeof(veeder_start));
 }
 /**
  * switch dispencer mode to online.
  */
-int VeederRoot::switchMode(bool online)
+int VeederEmr4::switchMode(bool online)
 {
   return 0;
 }
 
-uint8_t * VeederRoot::presetCalculate(float quantity) {
+std::string VeederEmr4::getType()
+{
+  return "VeederEmr4";
+}
+
+uint8_t * VeederEmr4::presetCalculate(float quantity) {
   int J, K, L, P,set;
   set=quantity;
   if (set < 10)

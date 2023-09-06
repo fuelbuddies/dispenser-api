@@ -118,6 +118,13 @@ public:
   /**
    * read the value from serialdata
    */
+  virtual std::string getType() {
+    return 'Dispenser';
+  };
+
+  /**
+   * read the value from serialdata
+   */
   String getReadData();
 
   /**

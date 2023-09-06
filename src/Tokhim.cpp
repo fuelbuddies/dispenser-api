@@ -109,3 +109,7 @@ int Tokhim::switchMode(bool online)
 uint8_t * Tokhim::presetCalculate(float quantity){
   return {};
 }
+
+std::string Tokhim::getType() {
+  return "Tokheim";
+}
