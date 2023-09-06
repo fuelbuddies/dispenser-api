@@ -75,6 +75,8 @@ public:
 
   uint8_t * presetCalculate(float quantity);
 
+  std::string getType();
+
 private:
   uint8_t totalizer[5] = {0x01, 0x41, 0x54, 0x7F, 0x6B};
   uint8_t read_sale[5] = {0x01, 0x41, 0x52, 0x7F, 0x6D};
