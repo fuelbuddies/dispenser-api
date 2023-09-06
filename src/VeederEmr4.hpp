@@ -28,6 +28,11 @@ public:
    */
   int readPreset();
   /**
+   * cancel preset
+   * [dispencer specific]
+   */
+  int cancelPreset();
+  /**
    * suspendDispencer, clearSale, pumpStop
    */
   int stopDispencer();

@@ -136,3 +136,8 @@ int VeederEmr4::switchMode(bool online)
 {
   return 0;
 }
+
+int VeederEmr4::cancelPreset()
+{
+  return 0;
+}
