@@ -141,3 +141,8 @@ int VeederEmr4::cancelPreset()
 {
   return 0;
 }
+
+int VeederEmr4::readDispencerStatus()
+{
+  return 0;
+}
