@@ -65,7 +65,7 @@ public:
    */
   int switchMode(bool online = true);
 
-  uint8_t * presetCalculate(float quantity);
+  uint8_t * presetCalculate(int quantity);
 
   std::string getType();
 
