@@ -141,9 +141,3 @@ int VeederEmr4::cancelPreset()
 {
   return 0;
 }
-
-int VeederEmr4::sendPreset(float quantity)
-{
-  // Provide the implementation for VeederEmr4 specific behavior here
-  return 0; // Return an appropriate value or perform the necessary actions
-}
