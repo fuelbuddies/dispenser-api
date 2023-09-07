@@ -14,8 +14,8 @@ int VeederEmr4::readTotalizer()
  */
 int VeederEmr4::authorizeSale()
 {
-  dispencerSerial->write(veeder_authorize_on,sizeof(veeder_authorize_on));
-  return dispencerSerial->write(veeder_start,sizeof(veeder_start));
+  return dispencerSerial->write(veeder_authorize_on,sizeof(veeder_authorize_on));
+  // return dispencerSerial->write(veeder_start,sizeof(veeder_start));
 }
 /**
  * sets the quantity to be dispencend
@@ -43,6 +43,7 @@ int VeederEmr4::stopDispencer()
   dispencerSerial->write(veeder_reset,sizeof(veeder_reset));
   return dispencerSerial->write(veeder_finish, sizeof(veeder_finish));
 }
+
 /**
  * suspend Dispencer
  */
@@ -128,7 +129,7 @@ uint8_t * VeederEmr4::presetCalculate(int set) {
 
 int VeederEmr4::resumeDispencer()
 {
-  return 0;
+  return dispencerSerial->write(veeder_authorize_on,sizeof(veeder_authorize_on));
 }
 
 int VeederEmr4::switchMode(bool online)
@@ -138,10 +139,10 @@ int VeederEmr4::switchMode(bool online)
 
 int VeederEmr4::cancelPreset()
 {
-  return 0;
+  return dispencerSerial->write(veeder_reset,sizeof(veeder_reset));
 }
 
 int VeederEmr4::readDispencerStatus()
 {
-  return 0;
+  return dispencerSerial->write(veeder_mode,sizeof(veeder_mode));
 }
