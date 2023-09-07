@@ -116,7 +116,7 @@ int Tokhim::switchMode(bool online)
   return 0;
 }
 
-uint8_t * Tokhim::presetCalculate(float quantity){
+uint8_t * Tokhim::presetCalculate(int quantity){
   return {};
 }
 

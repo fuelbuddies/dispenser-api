@@ -21,7 +21,7 @@ public:
    * sets the quantity to be dispencend
    * [dispencer specific]
    */
-  int sendPreset(float quantity);
+  int sendPreset(int quantity);
   /**
    * gets the quantity to be dispencend
    * [dispencer specific]

@@ -84,9 +84,8 @@ std::string VeederEmr4::getType()
   return "VeederEmr4";
 }
 
-uint8_t * VeederEmr4::presetCalculate(float quantity) {
-  int J, K, L, P,set;
-  set=quantity;
+uint8_t * VeederEmr4::presetCalculate(int set) {
+  int J, K, L, P;
   if (set < 10)
   {
     J = 0;
