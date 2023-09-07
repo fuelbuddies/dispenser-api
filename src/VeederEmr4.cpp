@@ -21,7 +21,7 @@ int VeederEmr4::authorizeSale()
  * sets the quantity to be dispencend
  * [dispencer specific]
  */
-int VeederEmr4::sendPreset(float quantity)
+int VeederEmr4::sendPreset(int quantity)
 {
   return dispencerSerial->write(presetCalculate(quantity), sizeof(presetCalculate(quantity)));
 }
