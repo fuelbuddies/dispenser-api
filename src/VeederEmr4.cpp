@@ -144,5 +144,5 @@ int VeederEmr4::cancelPreset()
 
 int VeederEmr4::readDispencerStatus()
 {
-  return dispencerSerial->write(veeder_mode,sizeof(veeder_mode));
+  return dispencerSerial->write(veeder_status,sizeof(veeder_status));
 }
