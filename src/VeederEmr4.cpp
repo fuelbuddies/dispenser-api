@@ -72,7 +72,6 @@ int VeederEmr4::readSale()
  */
 int VeederEmr4::pumpStop()
 {
-  digitalWrite(external_pump, HIGH);
   return 0;
 }
 /**
@@ -80,7 +79,6 @@ int VeederEmr4::pumpStop()
  */
 int VeederEmr4::pumpStart()
 {
-  digitalWrite(external_pump, LOW);
   return 0;
 }
 
