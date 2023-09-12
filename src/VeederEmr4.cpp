@@ -14,8 +14,7 @@ int VeederEmr4::readTotalizer()
  */
 int VeederEmr4::authorizeSale()
 {
-  return dispencerSerial->write(veeder_authorize_on,sizeof(veeder_authorize_on));
-  // return dispencerSerial->write(veeder_start,sizeof(veeder_start));
+  return dispencerSerial->write(veeder_start,sizeof(veeder_start));
 }
 /**
  * sets the quantity to be dispencend
@@ -73,14 +72,16 @@ int VeederEmr4::readSale()
  */
 int VeederEmr4::pumpStop()
 {
-  return dispencerSerial->write(veeder_finish,sizeof(veeder_finish));
+  digitalWrite(external_pump, HIGH);
+  return 0;
 }
 /**
  * start the external pump
  */
 int VeederEmr4::pumpStart()
 {
-  return dispencerSerial->write(veeder_start,sizeof(veeder_start));
+  digitalWrite(external_pump, LOW);
+  return 0;
 }
 
 std::string VeederEmr4::getType()
