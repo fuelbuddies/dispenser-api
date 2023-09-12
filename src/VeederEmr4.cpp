@@ -23,7 +23,11 @@ int VeederEmr4::authorizeSale()
  */
 int VeederEmr4::sendPreset(int quantity)
 {
-  return dispencerSerial->write(presetCalculate(quantity), sizeof(presetCalculate(quantity)));
+  uint8_t * preset_command = presetCalculate(quantity);
+  Serial.print("Preset Command: ");
+  Serial.println((char *)preset_command);
+
+  return dispencerSerial->write(preset_command, sizeof(preset_command));
 }
 
 /**
