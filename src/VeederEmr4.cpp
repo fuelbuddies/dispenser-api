@@ -127,7 +127,7 @@ uint8_t * VeederEmr4::presetCalculate(float veeder_pre) {
     dispencerSerial->write(BCC + 01);
   }
 
-  return dispencerSerial->write(0x7E);
+  return dispencerSerial->write(0x7E, sizeof(0x7E));
 }
 
 
