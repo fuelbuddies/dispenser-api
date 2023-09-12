@@ -25,7 +25,7 @@ int VeederEmr4::sendPreset(float quantity)
 {
   Serial.println("Preset Quantity -> "+ String(quantity));
   dispencerSerial->write(veeder_preset, sizeof(veeder_preset));
-  presetCalculate(quantity);
+  setPreset(quantity);
   return 0;
 }
 
@@ -88,7 +88,9 @@ std::string VeederEmr4::getType()
   return "VeederEmr4";
 }
 
-uint8_t * VeederEmr4::presetCalculate(float veeder_pre) {
+uint8_t * VeederEmr4::presetCalculate(float veeder_pre) {}
+
+void VeederEmr4::setPreset(float veeder_pre) {
   char message[] = {0, 0, 0, 0, 0, 0, 0, 0};
   unsigned i;
   unsigned char *chpt;
@@ -127,7 +129,8 @@ uint8_t * VeederEmr4::presetCalculate(float veeder_pre) {
     dispencerSerial->write(BCC + 01);
   }
 
-  return dispencerSerial->write(0x7E, sizeof(0x7E));
+  dispencerSerial->write(0x7E, sizeof(0x7E));
+  return BCC;
 }
 
 
