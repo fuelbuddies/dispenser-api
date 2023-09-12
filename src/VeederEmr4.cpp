@@ -51,7 +51,7 @@ int VeederEmr4::stopDispencer()
  */
 int VeederEmr4::suspendDispencer()
 {
-  return dispencerSerial->write(veeder_authorize_off,sizeof(veeder_authorize_off));
+  return dispencerSerial->write(veeder_finish,sizeof(veeder_finish));
 }
 /**
  * clear sale
