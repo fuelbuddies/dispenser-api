@@ -21,7 +21,7 @@ public:
    * sets the quantity to be dispencend
    * [dispencer specific]
    */
-  int sendPreset(int quantity);
+  int sendPreset(float quantity);
   /**
    * gets the quantity to be dispencend
    * [dispencer specific]
@@ -65,7 +65,7 @@ public:
    */
   int switchMode(bool online = true);
 
-  uint8_t * presetCalculate(int quantity);
+  uint8_t * presetCalculate(float quantity);
 
   std::string getType();
 
