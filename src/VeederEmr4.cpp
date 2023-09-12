@@ -134,7 +134,10 @@ int VeederEmr4::resumeDispencer()
 
 int VeederEmr4::switchMode(bool online)
 {
-  return 0;
+  if(online) {
+    return dispencerSerial->write(veeder_authorize_on,sizeof(veeder_authorize_on));
+  }
+  return dispencerSerial->write(veeder_authorize_off, sizeof(veeder_authorize_off));
 }
 
 int VeederEmr4::cancelPreset()
