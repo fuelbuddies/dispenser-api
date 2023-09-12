@@ -66,6 +66,7 @@ public:
   int switchMode(bool online = true);
 
   uint8_t * presetCalculate(float quantity);
+  void VeederEmr4::setPreset(float veeder_pre);
 
   std::string getType();
 
