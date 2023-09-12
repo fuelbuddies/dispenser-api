@@ -129,8 +129,7 @@ void VeederEmr4::setPreset(float veeder_pre) {
     dispencerSerial->write(BCC + 01);
   }
 
-  dispencerSerial->write(0x7E, sizeof(0x7E));
-  return BCC;
+  dispencerSerial->write(0x7E);
 }
 
 
