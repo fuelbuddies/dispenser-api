@@ -27,7 +27,7 @@ int VeederEmr4::sendPreset(float quantity)
   Serial.println("Preset Quantity -> "+ String(quantity));
   dispencerSerial->write(veeder_preset, sizeof(veeder_preset));
   setPreset(quantity);
-  return dispencerSerial->write(show_preset, sizeof(show_preset));
+  return dispencerSerial->write(veeder_show_preset, sizeof(veeder_show_preset));
 }
 
 /**
