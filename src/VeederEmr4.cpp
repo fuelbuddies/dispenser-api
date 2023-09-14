@@ -27,7 +27,7 @@ int VeederEmr4::sendPreset(float quantity)
   Serial.println("Preset Quantity -> "+ String(quantity));
   dispencerSerial->write(veeder_preset, sizeof(veeder_preset));
   setPreset(quantity);
-  return 0;
+  return dispencerSerial->write(show_preset, sizeof(show_preset));
 }
 
 /**
@@ -53,7 +53,7 @@ int VeederEmr4::stopDispencer()
  */
 int VeederEmr4::suspendDispencer()
 {
-  return dispencerSerial->write(veeder_finish,sizeof(veeder_finish));
+  return dispencerSerial->write(veeder_pause,sizeof(veeder_pause));
 }
 /**
  * clear sale
@@ -139,8 +139,7 @@ void VeederEmr4::setPreset(float veeder_pre) {
  */
 int VeederEmr4::resumeDispencer()
 {
-  dispencerSerial->write(veeder_authorize_off, sizeof(veeder_authorize_off));
-  return dispencerSerial->write(veeder_start,sizeof(veeder_start));
+  return dispencerSerial->write(veeder_resume,sizeof(veeder_resume));
 }
 
 int VeederEmr4::switchMode(bool online)
