@@ -67,7 +67,7 @@ int VeederEmr4::clearSale()
  */
 int VeederEmr4::readSale()
 {
-  return dispencerSerial->write(veeder_read_preset,sizeof(veeder_read_preset));
+  return dispencerSerial->write(veeder_read_sale,sizeof(veeder_read_sale));
 }
 /**
  * stop the external pump
@@ -87,6 +87,11 @@ int VeederEmr4::pumpStart()
 std::string VeederEmr4::getType()
 {
   return "VeederEmr4";
+}
+
+std::string VeederEmr4::getExternalPump()
+{
+    return "7eff1410bf7e"; // success
 }
 
 uint8_t * VeederEmr4::presetCalculate(float veeder_pre) {}

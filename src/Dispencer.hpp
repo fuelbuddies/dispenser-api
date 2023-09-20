@@ -140,6 +140,10 @@ public:
     return "Dispenser";
   };
 
+  virtual std::string getExternalPump() {
+    return "false"; // there is no external pump
+  };
+
   /**
    * read the value from serialdata
    */

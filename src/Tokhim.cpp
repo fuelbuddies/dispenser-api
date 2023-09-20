@@ -83,7 +83,7 @@ int Tokhim::resumeDispencer()
 /**
  * clear sale
  */
-int Tokhim::clearSale() 
+int Tokhim::clearSale()
 {
   return dispencerSerial->write(clear_sale, sizeof(clear_sale));
 }
@@ -97,7 +97,7 @@ int Tokhim::readSale()
 /**
  * stop the external pump
  */
-int Tokhim::pumpStop() 
+int Tokhim::pumpStop()
 {
   return dispencerSerial->write(pump_stop, sizeof(pump_stop));
 }
@@ -123,3 +123,8 @@ uint8_t * Tokhim::presetCalculate(int quantity){
 std::string Tokhim::getType() {
   return "Tokheim";
 }
+
+std::string Tokhim::getExternalPump()
+{
+    return "false";
+};

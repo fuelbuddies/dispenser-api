@@ -67,7 +67,7 @@ public:
    * start the external pump
    */
   int pumpStart();
-  
+
   /**
    * switch dispencer mode to online.
    */
@@ -76,6 +76,8 @@ public:
   uint8_t * presetCalculate(int quantity);
 
   std::string getType();
+
+  std::string getExternalPump();
 
 private:
   uint8_t totalizer[5] = {0x01, 0x41, 0x54, 0x7F, 0x6B};
