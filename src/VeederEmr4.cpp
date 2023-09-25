@@ -69,6 +69,14 @@ int VeederEmr4::readSale()
 {
   return dispencerSerial->write(veeder_read_sale,sizeof(veeder_read_sale));
 }
+
+/**
+ * read Authorization Status
+ */
+int VeederEmr4::readAuth()
+{
+  return dispencerSerial->write(veeder_get_authorization,sizeof(veeder_get_authorization));
+}
 /**
  * stop the external pump
  */
@@ -89,14 +97,15 @@ std::string VeederEmr4::getType()
   return "VeederEmr4";
 }
 
-std::string VeederEmr4::getExternalPump()
+std::string VeederEmr4::getExternalPump() 
 {
-    return "7eff1410bf7e"; // success
+    return "7eff1410bf7e"; // success 
 }
 
 uint8_t * VeederEmr4::presetCalculate(float veeder_pre) {}
 
-void VeederEmr4::setPreset(float veeder_pre) {
+void VeederEmr4::setPreset(float veeder_pre) 
+{
   char message[] = {0, 0, 0, 0, 0, 0, 0, 0};
   unsigned i;
   unsigned char *chpt;
@@ -159,7 +168,9 @@ int VeederEmr4::cancelPreset()
 {
   return dispencerSerial->write(veeder_reset,sizeof(veeder_reset));
 }
-
+/**
+ * reads avaialble 16 byte Status report
+ */
 int VeederEmr4::readDispencerStatus()
 {
   return dispencerSerial->write(veeder_status,sizeof(veeder_status));
