@@ -44,11 +44,21 @@ void Dispencer::serialEvent()
   is_ready_to_read = false;
   while (dispencerSerial->available()>0)
   {
-    String str = String(dispencerSerial->read(), HEX);
+    std::string str = int_to_hex(dispencerSerial->read();
     // add it to the inputString:
-    serial_data = String(serial_data) + str;
+    serial_data += str;
     is_ready_to_read = true;
   }
+}
+
+template< typename T >
+std::string int_to_hex( T i )
+{
+  std::stringstream stream;
+  stream << "0x" 
+         << std::setfill ('0') << std::setw(sizeof(T)*2) 
+         << std::hex << i;
+  return stream.str();
 }
 
 HardwareSerial *Dispencer::getSerial() {
