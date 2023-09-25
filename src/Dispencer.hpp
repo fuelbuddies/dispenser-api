@@ -6,7 +6,9 @@
 // #else
 // #include <WProgram.h>
 // #endif
-
+#include <string>
+#include <sstream>
+#include <iomanip>
 #include <HardwareSerial.h>
 
 class Dispencer

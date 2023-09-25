@@ -51,18 +51,19 @@ void Dispencer::serialEvent()
   }
 }
 
-template< typename T >
-std::string int_to_hex( T i )
+/// Convert integer value `val` to text in hexadecimal format.
+/// The minimum width is padded with leading zeros; if not
+/// specified, this `width` is derived from the type of the
+/// argument. Function suitable from char to long long.
+/// Pointers, floating point values, etc. are not supported;
+/// passing them will result in an (intentional!) compiler error.
+/// Basics from: http://stackoverflow.com/a/5100745/2932052
+template <typename T>
+inline std::string int_to_hex(T val, size_t width=sizeof(T)*2)
 {
-  std::stringstream stream;
-  stream << "0x" 
-         << std::setfill ('0') << std::setw(sizeof(T)*2) 
-         << std::hex << i;
-  return stream.str();
-}
-
-HardwareSerial *Dispencer::getSerial() {
-  return dispencerSerial;
+    std::stringstream ss;
+    ss << std::setfill('0') << std::setw(width) << std::hex << (val|0);
+    return ss.str();
 }
 
 bool Dispencer::isReadyToRead()
