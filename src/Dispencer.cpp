@@ -44,24 +44,22 @@ void Dispencer::serialEvent()
   is_ready_to_read = false;
   while (dispencerSerial->available()>0)
   {
-    std::string str = this->hexify<int>(dispencerSerial->read());
+    std::string str = this->hexify(dispencerSerial->read());
     // add it to the inputString:
     serial_data += String(str);
     is_ready_to_read = true;
   }
 }
 
-template< typename T >
-std::string hexify(T i)
+std::string hexify(int i)
 {
     std::stringbuf buf;
     std::ostream os(&buf);
 
-
-    os << std::setfill('0') << std::setw(sizeof(T) * 2)
+    os << std::setfill('0') << std::setw(sizeof(int) * 2)
        << std::hex << i;
 
-    return buf.str().c_str();
+    return buf.str();
 }
 
 bool Dispencer::isReadyToRead()
