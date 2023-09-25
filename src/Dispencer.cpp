@@ -44,7 +44,7 @@ void Dispencer::serialEvent()
   is_ready_to_read = false;
   while (dispencerSerial->available()>0)
   {
-    std::string str = int_to_hex(dispencerSerial->read();
+    std::string str = int_to_hex(dispencerSerial->read());
     // add it to the inputString:
     serial_data += str;
     is_ready_to_read = true;
