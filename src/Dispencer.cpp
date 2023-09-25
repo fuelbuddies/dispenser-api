@@ -44,7 +44,7 @@ void Dispencer::serialEvent()
   is_ready_to_read = false;
   while (dispencerSerial->available()>0)
   {
-    std::string str = int_to_hex(dispencerSerial->read());
+    std::string str = this->int_to_hex(dispencerSerial->read());
     // add it to the inputString:
     serial_data += str;
     is_ready_to_read = true;
@@ -59,7 +59,7 @@ void Dispencer::serialEvent()
 /// passing them will result in an (intentional!) compiler error.
 /// Basics from: http://stackoverflow.com/a/5100745/2932052
 template <typename T>
-inline std::string int_to_hex(T val, size_t width=sizeof(T)*2)
+std::string int_to_hex(T val, size_t width=sizeof(T)*2)
 {
     std::stringstream ss;
     ss << std::setfill('0') << std::setw(width) << std::hex << (val|0);
