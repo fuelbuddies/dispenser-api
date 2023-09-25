@@ -51,7 +51,7 @@ void Dispencer::serialEvent()
   }
 }
 
-std::string hexify(int i)
+std::string Dispencer::hexify(int i)
 {
     std::stringbuf buf;
     std::ostream os(&buf);
