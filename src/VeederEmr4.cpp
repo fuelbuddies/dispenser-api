@@ -99,7 +99,7 @@ std::string VeederEmr4::getType()
 
 std::string VeederEmr4::getExternalPump() 
 {
-    return "7eff1410bf7e"; // success 
+    return "7eff014100bf7e"; // success 
 }
 
 uint8_t * VeederEmr4::presetCalculate(float veeder_pre) {}
