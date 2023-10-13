@@ -97,14 +97,14 @@ std::string VeederEmr4::getType()
   return "VeederEmr4";
 }
 
-std::string VeederEmr4::getExternalPump() 
+std::string VeederEmr4::getExternalPump()
 {
-    return "7eff014100bf7e"; // success 
+    return "true"; // success
 }
 
 uint8_t * VeederEmr4::presetCalculate(float veeder_pre) {}
 
-void VeederEmr4::setPreset(float veeder_pre) 
+void VeederEmr4::setPreset(float veeder_pre)
 {
   char message[] = {0, 0, 0, 0, 0, 0, 0, 0};
   unsigned i;
