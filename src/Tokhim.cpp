@@ -23,7 +23,7 @@ int Tokhim::authorizeSale()
  */
 int Tokhim::readPreset()
 {
-  return dispencerSerial->write(tokhim_show_preset,sizeof(tokhim_show_preset));
+  return dispencerSerial->write(read_preset,sizeof(read_preset));
 }
 
 /**
