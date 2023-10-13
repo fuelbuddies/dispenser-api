@@ -49,6 +49,13 @@ public:
     return 0;
   }
   /**
+   * read sale
+   */
+  virtual int readAuth()
+  {
+    return 0;
+  }
+  /**
    * sets the quantity to be dispencend
    * [dispencer specific]
    */
