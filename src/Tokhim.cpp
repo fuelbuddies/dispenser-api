@@ -106,7 +106,7 @@ std::string Tokhim::getType() {
 
 std::string Tokhim::getExternalPump()
 {
-    return "false";
+    return "0141587f66";
 };
 
 /**
