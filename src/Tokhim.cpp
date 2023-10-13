@@ -114,10 +114,12 @@ std::string Tokhim::getExternalPump()
  */
 int Tokhim::switchMode(bool online)
 {
-  if(!online) {
-    return dispencerSerial->write(tokhim_authorize_off, sizeof(tokhim_authorize_off));
+  if(online) {
+    // for switching to online pump_start is recommended that is happening already in future flow
+    return this->pumpStart();
   }
-  // for switching to online pump_start is recommended that is happening already in future flow
+
+  return dispencerSerial->write(tokhim_authorize_off, sizeof(tokhim_authorize_off));
 }
 
 int Tokhim::sendPreset(float quantity)
