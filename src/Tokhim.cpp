@@ -164,11 +164,13 @@ int Tokhim::sendPreset(float quantity)
     uint8_t result = BCC[0] ^ BCC[1] ^ BCC[2] ^ BCC[3] ^ BCC[4] ^ BCC[5] ^ BCC[6] ^ BCC[7] ^ BCC[8] ^ BCC[9] ^ BCC[10] ^ BCC[11];
     uint8_t volume[13] = {0x01, 0x41, 0x50, 0x31, 0x30, one, two, three, four, 0x30, 0x30, 0x7F, result};
 
-    for (int i = 0; i < 13; i++)
-    {
-      Serial.print(volume[i], HEX);
-    }
-    Serial.println();
+    // for debugging only
+    // for (int i = 0; i < 13; i++)
+    // {
+    //   Serial.print(volume[i], HEX);
+    // }
+    // Serial.println();
+
     return dispencerSerial->write(volume, sizeof(volume));
 }
 
