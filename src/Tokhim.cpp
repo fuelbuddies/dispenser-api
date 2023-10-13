@@ -131,24 +131,21 @@ int Tokhim::sendPreset(float quantity)
         L = 0;
         P = set;
     }
-
-    if (set > 9 && set < 100)
+    else if (set > 9 && set < 100)
     {
         J = 0;
         K = 0;
         L = ((set / 10));
         P = (set % 10);
     }
-
-    if (set > 99 && set < 1000)
+    else if (set > 99 && set < 1000)
     {
         J = 0;
         K = ((set / 100));
         L = ((set / 10) % 10);
         P = (set % 10);
     }
-
-    if (set > 999 && set < 10000)
+    else if (set > 999 && set < 10000)
     {
         J = (set / 1000);
         K = ((set / 100) % 10);
@@ -156,28 +153,20 @@ int Tokhim::sendPreset(float quantity)
         P = (set % 10);
     }
 
-    uint8_t one = 0x30 + J;
-    uint8_t two = 0x30 + K;
+    uint8_t one   = 0x30 + J;
+    uint8_t two   = 0x30 + K;
     uint8_t three = 0x30 + L;
-    uint8_t four = 0x30 + P;
-    uint8_t BCC[20] = {0x02, 0x30, 0x30, 0x31, 0x31, 0x34, 0x32, 0x31, 0x30, 0x30, one, two, three, four, 0x31, 0x31, 0x20, 0x20, 0x20, 0x20};
-    int BCC_SIZE = 20;
+    uint8_t four  = 0x30 + P;
 
-    int checksum = 0;
-    for (int i = 0; i < BCC_SIZE; i++)
+    uint8_t BCC[] = {0x01, 0x41, 0x50, 0x31, 0x30, one, two, three, four, 0x30, 0x30, 0x7F};
+    uint8_t result = BCC[0] ^ BCC[1] ^ BCC[2] ^ BCC[3] ^ BCC[4] ^ BCC[5] ^ BCC[6] ^ BCC[7] ^ BCC[8] ^ BCC[9] ^ BCC[10] ^ BCC[11];
+    uint8_t volume[13] = {0x01, 0x41, 0x50, 0x31, 0x30, one, two, three, four, 0x30, 0x30, 0x7F, result};
+
+    for (int i = 0; i < 13; i++)
     {
-        checksum += BCC[i];
+      Serial.print(volume[i], HEX);
     }
-    checksum %= 256;
-
-    char checksumHex[3];
-    sprintf(checksumHex, "%02X", checksum);
-
-    uint8_t checksum1 = checksumHex[0];
-    uint8_t checksum2 = checksumHex[1];
-
-    uint8_t volume[23] = {0x02, 0x30, 0x30, 0x31, 0x31, 0x34, 0x32, 0x31, 0x30, 0x30, one, two, three, four, 0x31, 0x31, 0x20, 0x20, 0x20, 0x20, checksum2, checksum1, 0X0D};
-
+    Serial.println();
     return dispencerSerial->write(volume, sizeof(volume));
 }
 
