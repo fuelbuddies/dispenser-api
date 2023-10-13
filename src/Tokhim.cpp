@@ -120,7 +120,7 @@ int Tokhim::switchMode(bool online)
   // for switching to online pump_start is recommended that is happening already in future flow
 }
 
-int Tokhim::sendPreset(float quantity_ingress)
+int Tokhim::sendPreset(float quantity)
 {
     int J = 0, K = 0, L = 0, P = 0, set;
     set = static_cast<int>(quantity);
