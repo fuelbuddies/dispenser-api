@@ -82,7 +82,7 @@ int Tokhim::cancelPreset()
  */
 int Tokhim::resumeDispencer()
 {
-  return dispencerSerial->write(pump_stop,sizeof(pump_stop));;
+  return dispencerSerial->write(resume_sale,sizeof(resume_sale));
 }
 
 /**
