@@ -136,7 +136,7 @@ int IsoilVegaT::sendPreset(float quantity)
     // }
 
     // write_command(volume);
-    dispencerSerial->write((char *)volume, sizeof(volume));
+    return dispencerSerial->write((char *)volume, sizeof(volume));
 
     // ESP_LOG_BUFFER_HEXDUMP(TAG, volume, sizeof(volume), ESP_LOG_DEBUG);
 }
