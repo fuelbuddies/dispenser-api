@@ -74,7 +74,7 @@ int IsoilVegaT::readDispencerStatus() {
     return dispencerSerial->write(check_nozzle_totalizer,sizeof(check_nozzle_totalizer));
 }
 
-void IsoilVegaT::setPreset(float quantity)
+void IsoilVegaT::sendPreset(float quantity)
 {
     int J = 0, K = 0, L = 0, P = 0, set;
     set = static_cast<int>(quantity);
