@@ -59,7 +59,7 @@ public:
    * sets the quantity to be dispencend
    * [dispencer specific]
    */
-  virtual int sendPreset(int quantity)
+  virtual int sendPreset(float quantity)
   {
     return 0;
   }
