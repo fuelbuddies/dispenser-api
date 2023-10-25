@@ -68,7 +68,6 @@ public:
    * switch dispencer mode to online.
    */
   int switchMode(bool online = true);
-  int sendPreset(float quantity);
 
   std::string getType();
   
