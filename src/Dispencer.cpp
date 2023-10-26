@@ -8,16 +8,16 @@ Dispencer::Dispencer(HardwareSerial *serial)
   dispencerSerial = serial;
 }
 
-int ASCIIHexToInt(char c)
-{
-  int ret = 0;
-  if ((c >= '0') && (c <= '9'))
-    ret = (ret << 4) + c - '0';
-  else
-    ret = (ret << 4) + toupper(c) - 'A' + 10;
+// int ASCIIHexToInt(char c)
+// {
+//   int ret = 0;
+//   if ((c >= '0') && (c <= '9'))
+//     ret = (ret << 4) + c - '0';
+//   else
+//     ret = (ret << 4) + toupper(c) - 'A' + 10;
 
-  return ret;
-}
+//   return ret;
+// }
 
 // void Dispencer::connectDispencer()
 // {
