@@ -67,7 +67,7 @@ int IsoilVegaT::switchMode(bool online) {
 }
 
 int IsoilVegaT::cancelPreset() {
-    return "02303031203432303039370d20";
+    this->sendPreset(0f);
 }
 
 int IsoilVegaT::readDispencerStatus() {
