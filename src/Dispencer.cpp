@@ -51,6 +51,7 @@ void Dispencer::serialEvent()
     // add it to the inputString:
     serial_data = String(serial_data) + str;
     is_ready_to_read = true;
+    delay(30);
   }
 }
 
