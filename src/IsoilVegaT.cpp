@@ -38,6 +38,7 @@ int IsoilVegaT::suspendDispencer() {
 
 int IsoilVegaT::resumeDispencer() {
     dispencerSerial->write(terminate,sizeof(terminate));
+    delay(25);
     return dispencerSerial->write(start,sizeof(start));
 }
 
@@ -59,6 +60,7 @@ int IsoilVegaT::pumpStart() {
 
 int IsoilVegaT::pumpStop() {
     dispencerSerial->write(terminate,sizeof(terminate));
+    delay(25);
     return dispencerSerial->write(inbetween_close,sizeof(inbetween_close));
 }
 
