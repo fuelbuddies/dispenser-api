@@ -151,9 +151,9 @@ int IsoilVegaT::printReciept(char *printText, int BCC_SIZE) {
     tmp[2] = '\0';
     uint8_t tx_buffer[BCC_SIZE_CC/2+3];
     uint8_t len_buffer=0;
-    for(int i=0;i<strlen(buf);i+=2) {
-        tmp[0] = buf[i];
-        tmp[1] = buf[i+1];
+    for(int i=0;i<strlen(printTextHex);i+=2) {
+        tmp[0] = printTextHex[i];
+        tmp[1] = printTextHex[i+1];
         tx_buffer[len_buffer] = strtol(tmp,NULL,16);
         len_buffer++;
     }
