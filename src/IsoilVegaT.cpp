@@ -142,3 +142,36 @@ int IsoilVegaT::sendPreset(float quantity)
 
     // ESP_LOG_BUFFER_HEXDUMP(TAG, volume, sizeof(volume), ESP_LOG_DEBUG);
 }
+
+
+int IsoilVegaT::printReciept(char *printText, int BCC_SIZE) {
+    const char * printTextHex = "0230303131343831303030393054414E4D41590A2054414E4D4159200A202054414E4D4159200A20202054414E4D415920202020";
+    int BCC_SIZE_CC = sizeof(printTextHex);
+    char tmp[3];
+    tmp[2] = '\0';
+    uint8_t tx_buffer[BCC_SIZE_CC/2+3];
+    uint8_t len_buffer=0;
+    for(int i=0;i<strlen(buf);i+=2) {
+        tmp[0] = buf[i];
+        tmp[1] = buf[i+1];
+        tx_buffer[len_buffer] = strtol(tmp,NULL,16);
+        len_buffer++;
+    }
+
+    int checksum = 0;
+    for (int i = 0; i < len_buffer; i++)
+    {
+        checksum += tx_buffer[i];
+    }
+    checksum %= 256;
+    char checksumHex[3];
+    sprintf(checksumHex, "%02X", checksum);
+    uint8_t checksum1 = checksumHex[0];
+    uint8_t checksum2 = checksumHex[1];
+
+    tx_buffer[len_buffer+1] = checksum2;
+    tx_buffer[len_buffer+2] = checksum1;
+    tx_buffer[len_buffer+2] = 0x0D;
+
+    return dispencerSerial->write((char *)tx_buffer,sizeof(tx_buffer));
+}

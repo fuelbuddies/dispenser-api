@@ -64,6 +64,12 @@ public:
    * start the external pump
    */
   int pumpStart();
+
+  /**
+   * print reciept
+   */
+  int printReciept(char *printText, int BCC_SIZE);
+
   /**
    * switch dispencer mode to online.
    */
@@ -72,6 +78,7 @@ public:
   std::string getType();
   
   std::string getExternalPump();
+  
 
 private:
   const uint8_t totalizer[17] =                     {0x02, 0x30, 0x30, 0x31, 0x30, 0x33, 0x30, 0x30, 0x30, 0x30, 0x20, 0x20, 0x20, 0x20, 0x36, 0x33, 0x0D};
