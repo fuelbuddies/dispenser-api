@@ -9,7 +9,7 @@ std::string IsoilVegaT::getType()
   return "ISOILVEGATV10";
 }
 
-std::string IsoilVegaT::getExternalPump() 
+std::string IsoilVegaT::getExternalPump()
 {
     return "false";
 }
@@ -144,22 +144,34 @@ int IsoilVegaT::sendPreset(float quantity)
 }
 
 
-int IsoilVegaT::printReciept(char *printText, int BCC_SIZE) {
-    const char * printTextHex = "0230303131343831303030393054414E4D41590A2054414E4D4159200A202054414E4D4159200A20202054414E4D415920202020";
-    int BCC_SIZE_CC = sizeof(printTextHex);
+int IsoilVegaT::printReciept(char *printText) {
+    // Find the length of the string in the pointer
+    int BCC_SIZE_CC = strlen(printText);
+
+    // Create a char array with a size one greater than the BCC_SIZE_CC of the pointer
+    char printTextHex[BCC_SIZE_CC + 1]; // +1 for the null terminator
+
+    // Copy contents from the pointer to the array using memcpy
+    memcpy(printTextHex, printText, BCC_SIZE_CC + 1);
+
+    int i = 0;
     char tmp[3];
     tmp[2] = '\0';
-    uint8_t tx_buffer[BCC_SIZE_CC/2+3];
+
+    uint8_t tx_buffer[(BCC_SIZE_CC/2)+3];
     uint8_t len_buffer=0;
-    for(int i=0;i<strlen(printTextHex);i+=2) {
+
+    for(i=0;i<BCC_SIZE_CC;i+=2) {
         tmp[0] = printTextHex[i];
         tmp[1] = printTextHex[i+1];
         tx_buffer[len_buffer] = strtol(tmp,NULL,16);
         len_buffer++;
     }
 
+    Serial.println(("lenBuffer-> " + String(len_buffer)).c_str());
+
     int checksum = 0;
-    for (int i = 0; i < len_buffer; i++)
+    for (i = 0; i < len_buffer; i++)
     {
         checksum += tx_buffer[i];
     }
@@ -169,9 +181,18 @@ int IsoilVegaT::printReciept(char *printText, int BCC_SIZE) {
     uint8_t checksum1 = checksumHex[0];
     uint8_t checksum2 = checksumHex[1];
 
-    tx_buffer[len_buffer+1] = checksum2;
-    tx_buffer[len_buffer+2] = checksum1;
+    tx_buffer[len_buffer] = checksum2;
+    tx_buffer[len_buffer+1] = checksum1;
     tx_buffer[len_buffer+2] = 0x0D;
+
+    Serial.println("txBuffer-> ");
+    for (i = 0; i < len_buffer+3; i++) {
+        String str = String(tx_buffer[i], HEX);
+        if (str.length() == 1) {
+        str = "0" + str;
+        }
+        Serial.print(str);
+    }
 
     return dispencerSerial->write((char *)tx_buffer,sizeof(tx_buffer));
 }
