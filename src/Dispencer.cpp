@@ -72,3 +72,13 @@ String Dispencer::getReadData()
   is_ready_to_read = false;
   return response;
 }
+
+uint8_t Dispencer::hexStringToByte(char *printText, int needle) {
+    char hexPair[3];
+
+    hexPair[0] = printText[needle];
+    hexPair[1] = printText[needle + 1];
+    hexPair[2] = '\0';
+
+    return (uint8_t) strtol(hexPair, NULL, 16);
+}

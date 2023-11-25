@@ -138,6 +138,14 @@ public:
     return 0;
   }
 
+  /**
+   * Print reciept
+   */
+  virtual int printReciept(char *printText)
+  {
+    return 0;
+  }
+
   virtual uint8_t * presetCalculate(float quantity) {
     return {};
   };
@@ -168,6 +176,7 @@ public:
    */
   bool isReadyToRead();
   HardwareSerial *getSerial();
+  uint8_t hexStringToByte(char *printText, int needle);
 protected:
   HardwareSerial *dispencerSerial;
 
@@ -178,7 +187,7 @@ protected:
   {
     return 0;
   };
-  
+
   virtual int internalPumpStop()
   {
     return 0;
