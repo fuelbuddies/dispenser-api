@@ -68,7 +68,7 @@ public:
   /**
    * print reciept
    */
-  int printReciept(char *printText, int BCC_SIZE);
+  int printReciept(char *printText);
 
   /**
    * switch dispencer mode to online.
