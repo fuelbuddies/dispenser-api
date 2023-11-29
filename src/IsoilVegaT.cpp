@@ -6,7 +6,7 @@ IsoilVegaT::IsoilVegaT(HardwareSerial *serial) : Dispencer(serial)
 
 std::string IsoilVegaT::getType()
 {
-  return "ISOILVEGATV10";
+  return "ISOILVEGATV10";  //TEST for Pulls
 }
 
 std::string IsoilVegaT::getExternalPump()
