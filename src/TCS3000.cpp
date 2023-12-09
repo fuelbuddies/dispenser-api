@@ -29,11 +29,11 @@ int TCS3000::readPreset() {
 }
 
 int TCS3000::stopDispencer() {
-    return dispencerSerial->write(stop,sizeof(stop)); //TBD
+    return dispencerSerial->write(pump_stop,sizeof(pump_stop)); //TBD
 }
 
 int TCS3000::suspendDispencer() {
-    return dispencerSerial->write(suspend_sale,sizeof(stop));
+    return dispencerSerial->write(suspend_sale,sizeof(suspend_sale));
 }
 
 int TCS3000::resumeDispencer() {
