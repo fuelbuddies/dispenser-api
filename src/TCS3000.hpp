@@ -78,7 +78,6 @@ public:
   std::string getType();
 
   std::string getExternalPump();
-  unsigned char calc_checksum_8(unsigned char * data, unsigned int len);
 
 
 private:

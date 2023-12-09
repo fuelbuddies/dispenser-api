@@ -177,6 +177,8 @@ public:
   bool isReadyToRead();
   HardwareSerial *getSerial();
   uint8_t hexStringToByte(char *printText, int needle);
+  double hexStringToDouble(const std::string& hexstr);
+  std::string doubleToHexString(double x);
 protected:
   HardwareSerial *dispencerSerial;
 

@@ -74,69 +74,37 @@ int TCS3000::readDispencerStatus() {
 
 int TCS3000::sendPreset(float quantity)
 {
-    int J = 0, K = 0, L = 0, P = 0, set;
-    set = static_cast<int>(quantity);
-    if (set < 10)
-    {
-        J = 0;
-        K = 0;
-        L = 0;
-        P = set;
-    }
-    if (set > 9 && set < 100)
-    {
-        J = 0;
-        K = 0;
-        L = ((set / 10));
-        P = (set % 10);
-    }
-    if (set > 99 && set < 1000)
-    {
-        J = 0;
-        K = ((set / 100));
-        L = ((set / 10) % 10);
-        P = (set % 10);
-    }
-    if (set > 999 && set < 10000)
-    {
-        J = (set / 1000);
-        ;
-        K = ((set / 100) % 10);
-        L = ((set / 10) % 10);
-        P = (set % 10);
+    unsigned int i = 0;
+    double set = static_cast<double>(quantity);
+    unsigned char crc = 0;
+
+    uint8_t volume_precursor[] = {0x7E, 0x01, 0x00, 0x20, 0x38, 0x0B, 0x03, 0x03, 0xF7};
+    size_t volume_precursor_length = sizeof(volume_precursor) / sizeof(volume_precursor[0]);
+
+    // calculate the partial crc based upon the precursor
+    for(i=0; i < volume_precursor_length; i++) {
+        crc = crc_array[ crc ^ data[i] ];
     }
 
-    uint8_t one = 0x30 + J;
-    uint8_t two = 0x30 + K;
-    uint8_t three = 0x30 + L;
-    uint8_t four = 0x30 + P;
-    uint8_t BCC[20] = {0x02, 0x30, 0x30, 0x31, 0x31, 0x34, 0x32, 0x31, 0x30, 0x30, one, two, three, four, 0x31, 0x31, 0x20, 0x20, 0x20, 0x20};
-    int BCC_SIZE = 20;                      //Kya scene is Checksum ka, @explain_bot
-
-    int checksum = 0;
-    for (int i = 0; i < BCC_SIZE; i++)
+    // calculate preset hex from double
+    std::string hex = this->doubleToHexString(set);
+    for (i = 0; i < hex.length(); i += 2)
     {
-        checksum += BCC[i];
+        crc = crc_array[ crc ^ this->hexStringToByte(hex.c_str(), i) ];
     }
-    checksum %= 256;
 
-    char checksumHex[3];
-    sprintf(checksumHex, "%02X", checksum);
+    // Send volume precursor over serial
+    for (i = 0; i < volume_precursor_length; i++) {
+        dispencerSerial->write((uint8_t) volume_precursor[i]);
+    }
 
-    uint8_t checksum1 = checksumHex[0];
-    uint8_t checksum2 = checksumHex[1];
+    // Send each character of the hex string over serial
+    for (i = 0; i < hex.length(); i += 2) {
+        dispencerSerial->write((uint8_t) this->hexStringToByte(hex.c_str(), i));
+    }
 
-    uint8_t volume[23] = {0x02, 0x30, 0x30, 0x31, 0x31, 0x34, 0x32, 0x31, 0x30, 0x30, one, two, three, four, 0x31, 0x31, 0x20, 0x20, 0x20, 0x20, checksum2, checksum1, 0X0D};
-
-    // for (int i = 0; i < 23; i++)
-    // {
-    //     printf("%02X ", volume[i]);
-    // }
-
-    // write_command(volume);
-    return dispencerSerial->write((char *)volume, sizeof(volume));
-
-    // ESP_LOG_BUFFER_HEXDUMP(TAG, volume, sizeof(volume), ESP_LOG_DEBUG);
+    // Send the CRC
+    return dispencerSerial->write(crc);
 }
 
 int TCS3000::printReciept(char *printText) {
@@ -155,12 +123,4 @@ int TCS3000::printReciept(char *printText) {
 
     // Send the CRC
     return dispencerSerial->write(crc);
-}
-
-unsigned char TCS3000::calc_checksum_8(unsigned char * data, unsigned int len) {
-    unsigned char crc = 0;
-    for(unsigned int i=0; i < len; i++) {
-        crc = crc_array[ crc ^ data[i] ];
-    }
-    return crc; 
 }
