@@ -73,7 +73,7 @@ String Dispencer::getReadData()
   return response;
 }
 
-uint8_t Dispencer::hexStringToByte(char *printText, int needle) {
+uint8_t Dispencer::hexStringToByte(const char *printText, int needle) {
     char hexPair[3];
 
     hexPair[0] = printText[needle];
