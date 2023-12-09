@@ -83,7 +83,7 @@ int TCS3000::sendPreset(float quantity)
 
     // calculate the partial crc based upon the precursor
     for(i=0; i < volume_precursor_length; i++) {
-        crc = crc_array[ crc ^ data[i] ];
+        crc = crc_array[ crc ^ volume_precursor[i] ];
     }
 
     // calculate preset hex from double
