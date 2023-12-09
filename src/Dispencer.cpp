@@ -82,3 +82,33 @@ uint8_t Dispencer::hexStringToByte(char *printText, int needle) {
 
     return (uint8_t) strtol(hexPair, NULL, 16);
 }
+
+
+double Dispencer::hexStringToDouble(const std::string& hexstr) {
+    union
+    {
+        long long i;
+        double    d;
+    } value;
+
+    value.i = std::stoll(hexstr, nullptr, 16);
+
+    return value.d;
+}
+
+std::string Dispencer::doubleToHexString(double x) {
+
+    union
+    {
+        long long i;
+        double    d;
+    } value;
+
+   value.d = x;
+
+   std::ostringstream buf;
+   buf << std::hex << std::setfill('0') << std::setw(16) << value.i;
+
+   return buf.str();
+
+}
