@@ -30,7 +30,6 @@ int TCS3000::readPreset() {
 
 int TCS3000::stopDispencer() {
     int res = dispencerSerial->write(pump_stop,sizeof(pump_stop)); //TBD
-    delay(3000);
     return res;
 }
 
@@ -43,6 +42,7 @@ int TCS3000::resumeDispencer() {
 }
 
 int TCS3000::clearSale() {
+    delay(5000);
     return dispencerSerial->write(clear_sale,sizeof(clear_sale));
 }
 
