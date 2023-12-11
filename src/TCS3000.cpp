@@ -37,7 +37,7 @@ int TCS3000::suspendDispencer() {
 }
 
 int TCS3000::resumeDispencer() {
-    dispencerSerial->write(resume_sale,sizeof(resume_sale));
+    return dispencerSerial->write(resume_sale,sizeof(resume_sale));
 }
 
 int TCS3000::clearSale() {
@@ -57,7 +57,7 @@ int TCS3000::pumpStart() {
 }
 
 int TCS3000::pumpStop() {
-    dispencerSerial->write(pump_stop,sizeof(pump_stop));
+    return dispencerSerial->write(pump_stop,sizeof(pump_stop));
 }
 
 int TCS3000::switchMode(bool online) {
